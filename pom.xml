@@ -9,6 +9,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>file</module>
+		<module>dal</module>
 <!--		<module>cat-core</module>
 		<module>cat-consumer</module>
 		<module>cat-hadoop</module>
