@@ -80,6 +80,15 @@ import hongwei.quhw.zq.jdbc.param.UnicodeStreamParam;
 public class PreparedStatementProxy implements PreparedStatement {
     private List<PreparedStatementParam<?>> params = new ArrayList<PreparedStatementParam<?>>();
 
+    private ConnectionProxy                 connectionProxy;
+
+    private String                          sql;
+
+    public PreparedStatementProxy(ConnectionProxy connectionProxy, String sql) {
+        this.connectionProxy = connectionProxy;
+        this.sql = sql;
+    }
+
     @Override
     public ResultSet executeQuery(String sql) throws SQLException {
         return null;
@@ -295,7 +304,16 @@ public class PreparedStatementProxy implements PreparedStatement {
 
     @Override
     public int executeUpdate() throws SQLException {
-        return 0;
+        // 获取真实连接
+        Connection conn = connectionProxy.getConnection();
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        for (PreparedStatementParam<?> param : params) {
+            param.setParam(stmt);
+        }
+
+        return stmt.executeUpdate();
     }
 
     @Override

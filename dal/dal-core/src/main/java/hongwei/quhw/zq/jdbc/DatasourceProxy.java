@@ -37,11 +37,11 @@ public class DatasourceProxy implements DataSource {
     }
 
     public Connection getConnection() throws SQLException {
-        return new ConnectionProxy();
+        return new ConnectionProxy(dataSource);
     }
 
     public Connection getConnection(String username, String password) throws SQLException {
-        return new ConnectionProxy();
+        return new ConnectionProxy(dataSource, username, password);
     }
 
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {

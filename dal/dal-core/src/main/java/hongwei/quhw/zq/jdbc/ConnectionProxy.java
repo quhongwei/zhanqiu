@@ -19,7 +19,26 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+import javax.sql.DataSource;
+
 public class ConnectionProxy implements Connection {
+    private DataSource dataSource;
+    private String     username;
+    private String     password;
+    private boolean    userAuth;
+
+    private boolean    autoCommit;
+
+    public ConnectionProxy(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public ConnectionProxy(DataSource dataSource, String username, String password) {
+        this.dataSource = dataSource;
+        this.username = username;
+        this.password = password;
+        this.userAuth = true;
+    }
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
@@ -38,7 +57,8 @@ public class ConnectionProxy implements Connection {
 
     @Override
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return null;
+        // 常用
+        return new PreparedStatementProxy(this, sql);
     }
 
     @Override
@@ -53,11 +73,12 @@ public class ConnectionProxy implements Connection {
 
     @Override
     public void setAutoCommit(boolean autoCommit) throws SQLException {
+        this.autoCommit = autoCommit;
     }
 
     @Override
     public boolean getAutoCommit() throws SQLException {
-        return false;
+        return autoCommit;
     }
 
     @Override
@@ -127,9 +148,9 @@ public class ConnectionProxy implements Connection {
     @Override
     public PreparedStatement prepareStatement(String sql, int resultSetType,
                                               int resultSetConcurrency) throws SQLException {
-        
+
         // 这里解析sql
-        
+
         return null;
     }
 
@@ -286,4 +307,12 @@ public class ConnectionProxy implements Connection {
         return 0;
     }
 
+    //  ================= 组件方法 ============
+    public Connection getConnection() throws SQLException {
+        if (userAuth) {
+            return dataSource.getConnection(username, password);
+        } else {
+            return dataSource.getConnection();
+        }
+    }
 }
