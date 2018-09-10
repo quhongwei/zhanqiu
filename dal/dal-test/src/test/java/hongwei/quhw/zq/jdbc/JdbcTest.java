@@ -1,5 +1,6 @@
 package hongwei.quhw.zq.jdbc;
 
-public class RdfDalDatasource {
+
+public class JdbcTest {
 
 }

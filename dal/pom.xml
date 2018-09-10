@@ -15,11 +15,81 @@
 
 	<modules>
 		<module>dal-core</module>
+		<module>dal-sqlparse-druid</module>
+		<module>dal-test</module>
 	</modules>
 
+	<dependencyManagement>
+		<dependencies>
 
-	<dependencies>
-		
-	</dependencies>
+			<dependency>
+				<groupId>hongwei.quhw</groupId>
+				<artifactId>dal-core</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>hongwei.quhw</groupId>
+				<artifactId>dal-sqlparse-druid</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>hongwei.quhw</groupId>
+				<artifactId>dal-test</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>1.0.9</version>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.8</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-core</artifactId>
+				<version>1.5</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>1.5</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito</artifactId>
+				<version>1.5</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.185</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>3.0.5.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.1.1</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>

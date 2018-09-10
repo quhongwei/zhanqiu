@@ -37,15 +37,18 @@ public class DatasourceProxy implements DataSource {
     }
 
     public Connection getConnection() throws SQLException {
-        return new ConnectionProxy(dataSource);
+        return new ConnectionProxy(dataSource.getConnection());
     }
 
     public Connection getConnection(String username, String password) throws SQLException {
-        return new ConnectionProxy(dataSource, username, password);
+        return new ConnectionProxy(dataSource.getConnection(username, password));
     }
 
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-        return dataSource.getParentLogger();
+        throw new UnsupportedOperationException();
     }
 
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 }
